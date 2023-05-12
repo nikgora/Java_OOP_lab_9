@@ -6,6 +6,13 @@ public class Reader extends Author {
     int libraryNumber;
     ArrayList<Book> books;
 
+
+    public void AddBook(Book book){
+        books.add(book);
+    }
+    public void RemoveBook(Book book){
+        books.remove(book);
+    }
     public Reader(int yearOfBirth, String name, String familyName, int libraryNumber, ArrayList<Book> books) {
         super(yearOfBirth, name, familyName);
         this.libraryNumber = libraryNumber;
