@@ -52,8 +52,28 @@ public void writeExternal(ObjectOutput out) throws IOException { }
 за допомогою яких потрібно організувати серіалізацію/десеріалізацію об'єктів даного класу.
  */
 
+import java.io.*;
+import java.util.ArrayList;
+
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        ArrayList<Book>books=new ArrayList<>();
+        ArrayList<Author>authors=new ArrayList<>();
+        authors.add(new Author(2001,"Mykola","Gora"));
+        books.add(new Book("1",authors,2023,1));
+        books.add(new Book("2",authors,2023,1));
+        ArrayList<Reader>readers = new ArrayList<>();
+        readers.add(new Reader(2001,"Mykola","Gora",1,books));
+        Library library = new Library("library",books,readers);
+        System.out.println("library "+library);
+        ObjectOutputStream objectOutputStream =
+                new ObjectOutputStream(new FileOutputStream(new File("data.data")));
+        objectOutputStream.writeObject(library);
+
+
+        ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(new File("data.data")));
+        Library l1 = (Library) objectInputStream.readObject();
+        System.out.println("l1 "+l1);
+
     }
 }

@@ -1,7 +1,4 @@
-import java.awt.print.Book;
-import java.beans.Transient;
 import java.io.*;
-import java.io.Reader;
 import java.util.ArrayList;
 
 public class Library implements Externalizable {
@@ -70,6 +67,15 @@ public class Library implements Externalizable {
         name = (String) in.readObject();
         books = (ArrayList<Book>) in.readObject();
         readers = (ArrayList<Reader>) in.readObject();
+    }
+
+    @Override
+    public String toString() {
+        return "Library{" +
+                "name='" + name + '\'' +
+                ", books=" + books +
+                ", readers=" + readers +
+                '}';
     }
 }
 

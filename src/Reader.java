@@ -1,4 +1,3 @@
-import java.awt.print.Book;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
@@ -22,11 +21,7 @@ public class Reader extends Author {
         this.books = books;
     }
 
-    public Reader(int libraryNumber, ArrayList<Book> books) {
-        super();
-        this.libraryNumber = libraryNumber;
-        this.books = books;
-    }
+
     public Reader(){
         super();
         this.libraryNumber=-1;
