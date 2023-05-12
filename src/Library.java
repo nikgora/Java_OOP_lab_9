@@ -1,9 +1,10 @@
 import java.awt.print.Book;
+import java.beans.Transient;
+import java.io.*;
 import java.io.Reader;
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Library implements Serializable {
+public class Library implements Externalizable {
     String name;
     ArrayList<Book>books;
     ArrayList<Reader>readers;
@@ -55,6 +56,20 @@ public class Library implements Serializable {
 
     public void setReaders(ArrayList<Reader> readers) {
         this.readers = readers;
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(name);
+        out.writeObject(books);
+        out.writeObject(readers);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        name = (String) in.readObject();
+        books = (ArrayList<Book>) in.readObject();
+        readers = (ArrayList<Reader>) in.readObject();
     }
 }
 

@@ -1,8 +1,8 @@
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 
-public class Book implements Serializable {
+public class Book implements Externalizable {
     String name;
     ArrayList<Author> authors;
     int publishedYear;
@@ -62,5 +62,21 @@ public class Book implements Serializable {
                 ", publishedYear=" + publishedYear +
                 ", serialNumber=" + serialNumber +
                 '}';
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(name);
+        out.writeObject(authors);
+        out.writeInt(publishedYear);
+        out.writeInt(serialNumber);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        name = (String) in.readObject();
+        authors = (ArrayList<Author>) in.readObject();
+        publishedYear = in.readInt();
+        serialNumber = in.readInt();
     }
 }

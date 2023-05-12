@@ -1,6 +1,6 @@
-import java.io.Serializable;
+import java.io.*;
 
-public class Author implements Serializable {
+public class Author implements Externalizable {
 
     int yearOfBirth;
     String name;
@@ -50,5 +50,20 @@ public class Author implements Serializable {
                 ", name='" + name + '\'' +
                 ", familyName='" + familyName + '\'' +
                 '}';
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(yearOfBirth);
+        out.writeObject(name);
+        out.writeObject(familyName);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        yearOfBirth = in.readInt();
+        name = (String) in.readObject();
+        familyName = (String) in.readObject();
+
     }
 }
