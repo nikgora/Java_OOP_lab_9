@@ -1,4 +1,7 @@
 import java.awt.print.Book;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.ArrayList;
 
 
@@ -28,5 +31,22 @@ public class Reader extends Author {
         super();
         this.libraryNumber=-1;
         this.books=new ArrayList<Book>(0);
+    }
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(yearOfBirth);
+        out.writeObject(name);
+        out.writeObject(familyName);
+        out.writeInt(libraryNumber);
+        out.writeObject(books);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        yearOfBirth = in.readInt();
+        name = (String) in.readObject();
+        familyName = (String) in.readObject();
+        libraryNumber=in.readInt();
+        books=(ArrayList<Book>) in.readObject();
     }
 }
